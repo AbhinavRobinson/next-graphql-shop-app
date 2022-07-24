@@ -10,6 +10,7 @@ const GET_PRODUCTS = gql`
         name
         description
         price
+        imageUrl
         category
         shop {
           _id
@@ -20,8 +21,9 @@ const GET_PRODUCTS = gql`
 `;
 
 const Home: NextPage = () => {
-  const { data } = useQuery(GET_PRODUCTS);
-  if (!data) return <div className={defaultStyle}>Fetching Products</div>;
+  const { data, loading } = useQuery(GET_PRODUCTS);
+  if (loading) return <div className={defaultStyle}>Fetching Products</div>;
+  if (!data) return <div className={defaultStyle}>No Products!</div>;
   const products = data.getAllProducts.data;
   return (
     <div className={defaultStyle}>

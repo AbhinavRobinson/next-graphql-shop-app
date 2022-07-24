@@ -14,7 +14,10 @@ const ProductItem = ({ product }: { product: any }) => (
   <a href="#" className="group">
     <div className={itemContainer}>
       <img
-        src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
+        src={
+          product.imageUrl ??
+          "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
+        }
         className={imageStyle}
       />
     </div>
