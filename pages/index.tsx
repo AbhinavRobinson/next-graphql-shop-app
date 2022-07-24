@@ -34,4 +34,4 @@ const Home: NextPage = () => {
 
 export default Home;
 
-const defaultStyle = `flex min-h-screen flex-col flex-wrap items-center justify-center py-2`;
+const defaultStyle = `flex min-h-screen flex-col flex-wrap items-center justify-start py-2`;
