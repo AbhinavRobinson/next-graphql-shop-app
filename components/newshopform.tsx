@@ -1,21 +1,22 @@
-import { useState } from 'react'
+import { FC, PropsWithChildren, useState } from 'react'
 import { gql } from '@apollo/client/core'
 import { useMutation } from '@apollo/client'
 import { useUser } from '@auth0/nextjs-auth0'
+import { httpLink, setAuthToken } from '../gqlclient'
 
 const CREATE_SHOP = gql`
   mutation CreateShop(
     $name: String!
     $description: String!
     $coverImg: String!
-    $ownerID: String!
+    $ownerId: String!
   ) {
     createShop(
       data: {
         name: $name
         description: $description
         coverImg: $coverImg
-        ownerID: $ownerID
+        ownerId: $ownerId
         products: []
       }
     ) {
@@ -25,8 +26,9 @@ const CREATE_SHOP = gql`
   }
 `
 
-const NewShopForm = () => {
-  const [createNewShop, { data }] = useMutation(CREATE_SHOP)
+const NewShopForm: FC<PropsWithChildren<{ accessToken: any }>> = (props) => {
+  const [createNewShop, { client }] = useMutation(CREATE_SHOP)
+  client.setLink(setAuthToken(props.accessToken).concat(httpLink))
 
   const { user } = useUser()
 
@@ -43,28 +45,25 @@ const NewShopForm = () => {
     })
   }
 
-  /**
-   * TODO: Implement
-   */
   const handleSubmit = (e: any) => {
     e.preventDefault()
 
     const { name, description, coverImg } = formData
-
-    createNewShop({
-      variables: {
-        name,
-        description,
-        coverImg,
-        ownerID: user?.sub,
-      },
-    })
-      .then((res) => {
-        alert('Shop created successfully')
+    if (user && user.sub)
+      createNewShop({
+        variables: {
+          name,
+          description,
+          coverImg,
+          ownerId: user.sub,
+        },
       })
-      .catch((err) => {
-        console.log(err)
-      })
+        .then((res) => {
+          alert('Shop created successfully')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
 
     console.log(formData)
   }
