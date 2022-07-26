@@ -1,9 +1,4 @@
 import Link from "next/link";
-
-const navLinkStyle = `cursor-pointer inline-flex items-center px-1 pt-1 text-gray-500 hover:text-indigo-400`;
-
-const iconButtonStyle = `flex bg-white p-2 rounded-full text-gray-400 hover:text-indigo-400 border-2 border-gray-500 hover:border-indigo-400`;
-
 import { useUser } from "@auth0/nextjs-auth0";
 
 export default function Navbar() {
@@ -19,7 +14,6 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
-
           <div className="ml-6 flex items-center">
             <Link href="/cart">
               <button className={iconButtonStyle}>
@@ -55,6 +49,12 @@ export default function Navbar() {
                 />
                 <span className="ml-2 mr-2">{user.name}</span>
                 <a
+                  href="/manage-shop"
+                  className="rounded-md border bg-purple-100 px-2 py-3 mr-2"
+                >
+                  Manage Shop
+                </a>
+                <a
                   href="/api/auth/logout"
                   className="rounded-md border bg-purple-100 px-2 py-3 mr-2"
                 >
@@ -68,3 +68,7 @@ export default function Navbar() {
     </nav>
   );
 }
+
+
+const navLinkStyle = `cursor-pointer inline-flex items-center px-1 pt-1 text-gray-500 hover:text-indigo-400`;
+const iconButtonStyle = `flex bg-white p-2 rounded-full text-gray-400 hover:text-indigo-400 border-2 border-gray-500 hover:border-indigo-400`;
