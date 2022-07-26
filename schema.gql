@@ -17,4 +17,5 @@ type Product {
 
 type Query {
   getAllProducts: [Product]
+  getShopsByOwnerId(ownerId: String!): [Shop]
 }
