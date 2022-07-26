@@ -26,7 +26,10 @@ export default function ManageShop(props: any) {
     <div>
       <NewShopForm accessToken={props.accessToken} />
       {data ? (
-        <ShopList shops={data.getShopsByOwnerId.data} />
+        <ShopList
+          shops={data.getShopsByOwnerId.data}
+          accessToken={props.accessToken}
+        />
       ) : (
         <p>
           {loading && 'Loading...'} {JSON.stringify(error)}
