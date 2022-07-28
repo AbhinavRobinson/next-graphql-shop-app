@@ -42,7 +42,7 @@ export default function Navbar() {
                         d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                       />
                     </svg>
-                    {` ${itemCount} Item(s)`}
+                    {itemCount}<span className="hidden md:flex">{`  Item(s)`}</span>
                   </button>
                 </Link>
                 <a
@@ -54,16 +54,18 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <img
-                  src={"https://pluspng.com/img-png/user-png-icon-big-image-png-2240.png"}
-                  className="rounded-full w-8 h-8 ml-2 mr-1"
-                />
-                <span className="ml-2 text-xl select-none">{user.name}</span>
-                <Link href="/cart">
-                  <button className={iconButtonStyle}>
+                <div className=" hidden lg:flex">
+                  <img
+                    src={"https://pluspng.com/img-png/user-png-icon-big-image-png-2240.png"}
+                    className="rounded-full w-8 h-8 ml-2 mr-1"
+                  />
+                  <span className="ml-2 text-xl select-none">{user.name}</span>
+                </div>
+                <Link href={itemCount > 0 ? "/cart" : "/"}>
+                  <button className={iconButtonStyle} disabled={itemCount < 1}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
+                      className="h-4 w-4 sm:h-6 sm:w-6"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -75,7 +77,9 @@ export default function Navbar() {
                         d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                       />
                     </svg>
-                    {` ${itemCount} Item(s)`}
+                    {itemCount > 0 ?
+                      itemCount : "Empty"
+                    }<span className="hidden lg:flex">{`  Item(s)`}</span>
                   </button>
                 </Link>
                 <a
@@ -99,8 +103,8 @@ export default function Navbar() {
   );
 }
 
-const navLinkStyle = `cursor-pointer inline-flex items-center px-1 pt-1 font-black text-2xl text-zinc-500 hover:text-red-500 uppercase active:text-red-600`;
+const navLinkStyle = `cursor-pointer inline-flex items-center px-1 pt-1 font-black text-lg sm:text-2xl text-zinc-500 hover:text-red-500 uppercase active:text-red-600`;
 
-const baseButton = 'flex gap-2 border-2 border-zinc-500 p-2 ml-4 rounded uppercase hover:-translate-y-1 drop-shadow-none active:drop-shadow-none active:translate-y-0 duration-100'
+const baseButton = 'flex items-center gap-1 sm:gap-2 text-xs sm:text-base border-2 border-zinc-500 p-2 ml-4 rounded uppercase hover:-translate-y-1 drop-shadow-none active:drop-shadow-none active:translate-y-0 duration-100'
 const iconButtonStyle = baseButton + ` bg-sky-100 text-zinc-500 hover:text-sky-500 hover:border-sky-500 font-bold  hover:drop-shadow-sky`;
 const userButtonStyle = baseButton + ` bg-fuchsia-200 hover:border-fuchsia-500 hover:drop-shadow-fuchsia`;
