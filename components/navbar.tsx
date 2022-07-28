@@ -4,14 +4,13 @@ import { useContext } from "react";
 import { Context } from "../contexts/cart";
 
 export default function Navbar() {
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const { state } = useContext(Context as any)
   const { cart } = state
   let itemCount = 0
-  for (const [key, value] of Object.entries(cart)) {
+  for (const [key, _] of Object.entries(cart)) {
     itemCount = itemCount + cart[key].qty
   }
-
   return (
     <nav className="bg-gradient-to-r from-sky-100 via-fuchsia-100 to-yellow-100">
       <div className="max-w-7xl mx-auto px-4">
@@ -59,7 +58,7 @@ export default function Navbar() {
                   src={"https://pluspng.com/img-png/user-png-icon-big-image-png-2240.png"}
                   className="rounded-full w-8 h-8 ml-2 mr-1"
                 />
-                <span className="ml-2 mr-4 text-xl">{user.name}</span>
+                <span className="ml-2 text-xl select-none">{user.name}</span>
                 <Link href="/cart">
                   <button className={iconButtonStyle}>
                     <svg
@@ -100,7 +99,8 @@ export default function Navbar() {
   );
 }
 
+const navLinkStyle = `cursor-pointer inline-flex items-center px-1 pt-1 font-black text-2xl text-zinc-500 hover:text-red-500 uppercase active:text-red-600`;
 
-const navLinkStyle = `cursor-pointer inline-flex items-center px-1 pt-1 font-black text-2xl text-zinc-500 hover:text-rose-500 uppercase`;
-const iconButtonStyle = `flex gap-2 bg-sky-100 p-2 rounded text-zinc-500 hover:text-sky-500 border-2 border-zinc-500 hover:border-sky-500`;
-const userButtonStyle = `rounded border-2 border-zinc-500 bg-fuchsia-200 p-2 ml-4 hover:border-fuchsia-500`;
+const baseButton = 'flex gap-2 border-2 border-zinc-500 p-2 ml-4 rounded uppercase hover:-translate-y-1 drop-shadow-none active:drop-shadow-none active:translate-y-0 duration-100'
+const iconButtonStyle = baseButton + ` bg-sky-100 text-zinc-500 hover:text-sky-500 hover:border-sky-500 font-bold  hover:drop-shadow-sky`;
+const userButtonStyle = baseButton + ` bg-fuchsia-200 hover:border-fuchsia-500 hover:drop-shadow-fuchsia`;

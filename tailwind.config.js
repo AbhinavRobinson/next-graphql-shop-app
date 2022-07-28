@@ -8,7 +8,12 @@ module.exports = {
     fontFamily: {
       sans: ['Lato', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      dropShadow: {
+        fuchsia: '0 5px 0 rgba(200, 50, 0, 1)',
+        sky: '0 5px 0 rgba(100, 150, 255, 1)',
+      },
+    },
   },
   plugins: [require('@tailwindcss/forms')],
 }
